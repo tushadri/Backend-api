@@ -133,7 +133,7 @@ app.put('/updateorders',(req,res) => {
 
 MongoClient.connect(mongourl,(err,connection) => {
     if(err) throw err;
-    db = connection.db('edurekintern');
+    db = connection.db('edurekaintern');
     app.listen(port,(err) => {
         if(err) throw err;
         console.log(`Server is running on port ${port}`)
