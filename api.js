@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-var port = 7800;
+var port = process.env.PORT||8000;
 var bodParser = require('body-parser');
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
 var morgan = require('morgan')
-var mongourl = "mongodb+srv://tushadriboruah:mongo@123@cluster0.f8vmc.mongodb.net/edurekintern?retryWrites=true&w=majority";
+var mongourl = "mongodb+srv://tushadriboruah:tush@123@cluster0.iqusu.mongodb.net/edurekaintern?retryWrites=true&w=majority";
 var cors = require('cors');
 var db;
 
@@ -116,7 +116,6 @@ app.get('/orders',(req,res) => {
         res.send(result)
     })
 })
-
 
 
 //Update orders
