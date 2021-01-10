@@ -1,10 +1,11 @@
 var express = require('express');
 var app = express();
-var port = process.env.PORT||7800;
+var port = 7800;
 var bodParser = require('body-parser');
 var mongo = require('mongodb');
 var MongoClient = mongo.MongoClient;
-var mongourl = "mongodb+srv://tushadriboruah:tush@123@cluster0.iqusu.mongodb.net/edurekaintern?retryWrites=true&w=majority";
+var morgan = require('morgan')
+var mongourl = "";
 var cors = require('cors');
 var db;
 
@@ -13,7 +14,7 @@ app.use(cors());
 app.use(bodParser.urlencoded({extended:true}));
 app.use(bodParser.json());
 
-
+app.use(morgan('tiny'))
 
 app.get('/health',(req,res) => {
     res.send("Api is working")
@@ -67,7 +68,7 @@ app.get('/restaurents',(req,res) => {
     })
 })
 
-//RestaurentDetail
+//RestaurentDetai+
 app.get('/restaurantdetails/:id',(req,res) => {
     var query = {_id:req.params.id}
     db.collection('restaurent').find(query).toArray((err,result) => {
@@ -116,6 +117,14 @@ app.get('/orders',(req,res) => {
     })
 })
 
+///Not Require in project
+//Delete Orders
+app.delete('/deleteorders',(req,res) => {
+    db.collection('orders').remove({_id:req.body.id},(err,result) => {
+        if(err) throw err;
+        res.send('data deleted')
+    })
+})
 
 //Update orders
 app.put('/updateorders',(req,res) => {
@@ -133,7 +142,7 @@ app.put('/updateorders',(req,res) => {
 
 MongoClient.connect(mongourl,(err,connection) => {
     if(err) throw err;
-    db = connection.db('edurekaintern');
+    db = connection.db('mydb');
     app.listen(port,(err) => {
         if(err) throw err;
         console.log(`Server is running on port ${port}`)
